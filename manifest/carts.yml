@@ -22,7 +22,7 @@ spec:
         - name: DT_TAGS
           value: "application=sockshop"
         - name: DT_CUSTOM_PROP
-          value: "SERVICE_TYPE=BACKEND"
+          value: "SERVICE_TYPE=BACKEND KEPTN=0.1.3 ACLCLASS=ACL"
         - name: POD_NAME
           valueFrom:
             fieldRef:
