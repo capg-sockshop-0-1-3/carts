@@ -76,7 +76,7 @@ metadata:
   name: carts
   labels:
     app: carts
-  namespace: default
+  namespace: dev
 spec:
   ports:
   - name: http
