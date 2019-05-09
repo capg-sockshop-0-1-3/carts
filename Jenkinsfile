@@ -145,7 +145,7 @@ pipeline {
               funcValidation: true,
               avgRtValidation: 0
             )
-          sh "ls -l ${env.SERVICE_NAME}.dev"
+          sh "ls -l"
           sh "find . -name HealthCheck_carts_result.tlf -print 2>/dev/null"
           sh "cat HealthCheck_carts_result.tlf"  
          //   if (status != 0) {
