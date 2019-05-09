@@ -115,7 +115,6 @@ pipeline {
               funcValidation: true,
               avgRtValidation: 0
             )
-          echo status  
           sh "ls -l"
           sh "cat HealthCheck_carts_result.tlf"              
             if (status != 0) {
@@ -148,7 +147,7 @@ pipeline {
               funcValidation: true,
               avgRtValidation: 0
             )
-          echo status  
+ 
           sh "ls -l"
           sh "cat HealthCheck_carts_result.tlf"  
          //   if (status != 0) {
