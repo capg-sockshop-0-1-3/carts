@@ -144,8 +144,9 @@ pipeline {
               funcValidation: true,
               avgRtValidation: 0
             )
-           ls -l ${env.SERVICE_NAME}.dev
-           find . -name HealthCheck_carts_result.tlf -print 2>/dev/null 
+          sh "ls -l ${env.SERVICE_NAME}.dev"
+          sh "find . -name HealthCheck_carts_result.tlf -print 2>/dev/null"
+          sh "cat HealthCheck_carts_result.tlf"  
          //   if (status != 0) {
          //     currentBuild.result = 'FAILED'
          //     error "Functional check in dev failed."
