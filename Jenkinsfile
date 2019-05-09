@@ -145,8 +145,8 @@ pipeline {
               funcValidation: true,
               avgRtValidation: 0
             )
+          echo $status  
           sh "ls -l"
-          sh "find . -name HealthCheck_carts_result.tlf -print 2>/dev/null"
           sh "cat HealthCheck_carts_result.tlf"  
          //   if (status != 0) {
          //     currentBuild.result = 'FAILED'
