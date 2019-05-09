@@ -116,7 +116,13 @@ pipeline {
               avgRtValidation: 0
             )
           sh "ls -l"
+          echo "output healthcheck"
           sh "cat HealthCheck_carts_result.tlf"              
+          echo "output jmeter.log"
+          sh "cat jmeter.log"              
+          echo "output output.txt"
+          sh "cat output.txt"              
+            
             if (status != 0) {
               currentBuild.result = 'FAILED'
               error "Health check in dev failed."
@@ -148,8 +154,12 @@ pipeline {
               avgRtValidation: 0
             )
  
-          sh "ls -l"
-          sh "cat HealthCheck_carts_result.tlf"  
+          echo "output healthcheck"
+          sh "cat HealthCheck_carts_result.tlf"              
+          echo "output jmeter.log"
+          sh "cat jmeter.log"              
+          echo "output output.txt"
+          sh "cat output.txt"   
          //   if (status != 0) {
          //     currentBuild.result = 'FAILED'
          //     error "Functional check in dev failed."
