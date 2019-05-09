@@ -130,6 +130,7 @@ pipeline {
         }
       }
       steps {
+        echo "about to start Functional Check in Dev"
         container('jmeter') {
           script {
             def status = executeJMeter (
