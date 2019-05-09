@@ -115,7 +115,7 @@ pipeline {
               funcValidation: true,
               avgRtValidation: 0
             )
-          sh "ls -l"            
+          sh "ls -l H*.tlf"            
             if (status != 0) {
               currentBuild.result = 'FAILED'
               error "Health check in dev failed."
@@ -148,11 +148,9 @@ pipeline {
               funcValidation: true,
               avgRtValidation: 0
             )
-          sh "ls -l"
+          sh "ls -l H*.tlf"
           echo "output healthcheck"
           sh "cat HealthCheck_carts_result.tlf"              
-          echo "output jmeter.log"
-          sh "cat jmeter.log"              
           echo "output output.txt"
           sh "cat output.txt"              
             
