@@ -99,7 +99,7 @@ pipeline {
       }
       steps {
         echo "Waiting for the service to start..."
-        sleep 150
+        sleep 180
 
         container('jmeter') {
           script {
@@ -115,6 +115,9 @@ pipeline {
               funcValidation: true,
               avgRtValidation: 0
             )
+          echo status  
+          sh "ls -l"
+          sh "cat HealthCheck_carts_result.tlf"              
             if (status != 0) {
               currentBuild.result = 'FAILED'
               error "Health check in dev failed."
@@ -145,7 +148,7 @@ pipeline {
               funcValidation: true,
               avgRtValidation: 0
             )
-          echo $status  
+          echo status  
           sh "ls -l"
           sh "cat HealthCheck_carts_result.tlf"  
          //   if (status != 0) {
