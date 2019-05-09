@@ -12,7 +12,7 @@
             "aggregation" : "avg",
             "tags" : "service:carts,environment:dev",
             "upperLimit" : 5.0,
-            "lowerLimit" : 0.0
+            "lowerLimit" : -1.0
         }
     ]
 }
