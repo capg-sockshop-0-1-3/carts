@@ -91,15 +91,15 @@ pipeline {
         }
       }
     }
-    stage('Run health check in dev') {
+    stage('Run health check in dev for master') {
       when {
         expression {
-          return env.BRANCH_NAME ==~ 'release/.*' || env.BRANCH_NAME ==~'master'
+          return env.BRANCH_NAME ==~'master'
         }
       }
       steps {
         echo "Waiting for the service to start..."
-        sleep 150
+        sleep 180
 
         container('jmeter') {
           script {
@@ -115,6 +115,45 @@ pipeline {
               funcValidation: true,
               avgRtValidation: 0
             )
+          sh "ls -l H*.tlf"            
+            if (status != 0) {
+              currentBuild.result = 'FAILED'
+              error "Health check in dev failed."
+            }
+          }
+        }
+      }
+    }    
+    stage('Run health check in dev for release') {
+      when {
+        expression {
+          return env.BRANCH_NAME ==~ 'release/.*' 
+        }
+      }
+      steps {
+        echo "Waiting for the service to start..."
+        sleep 180
+
+        container('jmeter') {
+          script {
+            def status = executeJMeter ( 
+              scriptName: 'jmeter/basiccheck.jmx', 
+              resultsDir: "HealthCheck_${env.SERVICE_NAME}",
+              serverUrl: "${env.SERVICE_NAME}.dev", 
+              serverPort: 80,
+              checkPath: '/health',
+              vuCount: 1,
+              loopCount: 1,
+              LTN: "HealthCheck_${BUILD_NUMBER}",
+              funcValidation: true,
+              avgRtValidation: 0
+            )
+          sh "ls -l H*.tlf"
+          echo "output healthcheck"
+          sh "cat HealthCheck_carts_result.tlf"              
+          echo "output output.txt"
+          sh "cat output.txt"              
+            
             if (status != 0) {
               currentBuild.result = 'FAILED'
               error "Health check in dev failed."
@@ -130,6 +169,7 @@ pipeline {
         }
       }
       steps {
+        echo "about to start Functional Check in Dev"
         container('jmeter') {
           script {
             def status = executeJMeter (
@@ -144,10 +184,17 @@ pipeline {
               funcValidation: true,
               avgRtValidation: 0
             )
-        //    if (status != 0) {
-        //      currentBuild.result = 'FAILED'
-        //      error "Functional check in dev failed."
-        //    }
+ 
+          echo "output healthcheck"
+          sh "cat HealthCheck_carts_result.tlf"              
+          echo "output jmeter.log"
+          sh "cat jmeter.log"              
+          echo "output output.txt"
+          sh "cat output.txt"   
+         //   if (status != 0) {
+         //     currentBuild.result = 'FAILED'
+         //     error "Functional check in dev failed."
+         //   }
           }
         }
       }
